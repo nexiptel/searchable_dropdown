@@ -265,6 +265,9 @@ class DropdownSearch<T> extends StatefulWidget {
 
   /// function to override position calculation
   final PositionCallback? positionCallback;
+    
+  /// Selected item text theme
+  final TextStyle? selectedItemTextStyle;
 
   DropdownSearch({
     Key? key,
@@ -325,6 +328,7 @@ class DropdownSearch<T> extends StatefulWidget {
     this.selectionListViewProps = const SelectionListViewProps(),
     this.focusNode,
     this.positionCallback,
+    this.selectedItemTextStyle,
   })  : assert(!showSelectedItems || T == String || compareFn != null),
         this.searchFieldProps = searchFieldProps ?? TextFieldProps(),
         this.isMultiSelectionMode = false,
@@ -403,6 +407,7 @@ class DropdownSearch<T> extends StatefulWidget {
     this.selectionListViewProps = const SelectionListViewProps(),
     this.focusNode,
     this.positionCallback,
+    this.selectedItemTextStyle,
   })  : assert(!showSelectedItems || T == String || compareFn != null),
         this.searchFieldProps = searchFieldProps ?? TextFieldProps(),
         this.onChangedMultiSelection = onChanged,
@@ -483,7 +488,7 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
         child: Text(
           _selectedItemAsString(item),
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.subtitle2,
+          style: widget.selectedItemTextStyle ?? Theme.of(context).textTheme.subtitle2,
         ),
       );
     }
@@ -507,7 +512,7 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
         );
       }
       return Text(_selectedItemAsString(getSelectedItem),
-          style: Theme.of(context).textTheme.subtitle1);
+          style: widget.selectedItemTextStyle ?? Theme.of(context).textTheme.subtitle1);
     }
 
     return Row(
